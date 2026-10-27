@@ -201,8 +201,10 @@ check_config() {
 get_etconfig() {
 		web_config="$(uci -q get easytier.@easytier[0].web_config)"
 		network_name="$(uci -q get easytier.@easytier[0].network_name)"
-		network_secret="$(uci -q get easytier.@easytier[0].network_secret)"
 		secure_mode="$(uci -q get easytier.@easytier[0].secure_mode || echo 0)"
+		use_credential="$(uci -q get easytier.@easytier[0].use_credential || echo 0)"
+		credential_secret="$(uci -q get easytier.@easytier[0].credential_secret)"
+		network_secret="$(uci -q get easytier.@easytier[0].network_secret)"
 		ip_dhcp="$(uci -q get easytier.@easytier[0].ip_dhcp || echo 0)"
 		ipaddr="$(uci -q get easytier.@easytier[0].ipaddr)"
 		ip6addr="$(uci -q get easytier.@easytier[0].ip6addr)"
@@ -471,8 +473,14 @@ start_et() {
 			if [ "$etcmd" = "etcmd" ] ; then
 				#默认方式启动
 				[ -z "$network_name" ] || core_cmd="${core_cmd} --network-name $(shell_quote "$network_name")"
+				if [ "$secure_mode" = "1" ]; then
+					core_cmd="${core_cmd} --secure-mode"
+					[ "$use_credential" = "1" ] && {
+						core_cmd="${core_cmd} --credential $(shell_quote "$credential_secret")"
+						network_secret=""
+					}
+				fi
 				[ -z "$network_secret" ] || core_cmd="${core_cmd} --network-secret $(shell_quote "$network_secret")"
-				[ "$secure_mode" = "0" ] || core_cmd="${core_cmd} --secure-mode"
 				[ -z "$ipaddr" ] || core_cmd="${core_cmd} -i $ipaddr"
 				[ -z "$ip6addr" ] || core_cmd="${core_cmd} --ipv6 $ip6addr"
 				[ "$ip_dhcp" = "0" ] || core_cmd="${core_cmd} -d"
