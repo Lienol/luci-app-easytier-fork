@@ -66,6 +66,10 @@ network_secret.placeholder = "easytier-password"
 network_secret.maxlength = 128
 network_secret:depends("etcmd", "etcmd")
 
+secure_mode = s:taboption("general", Flag, "secure_mode", translate("Secure Mode"),
+        translate("Noise-encrypted handshake between nodes; peers must support secure mode"))
+secure_mode:depends("etcmd", "etcmd")
+
 ip_dhcp = s:taboption("general", Flag, "ip_dhcp", translate("Enable DHCP"),
         translate("IP address will be automatically determined and assigned by EasyTier, starting from 10.0.0.1 by default. "
                 .. "Warning: When using DHCP, if an IP conflict occurs in the network, the IP will be automatically changed. (-d parameter)"))

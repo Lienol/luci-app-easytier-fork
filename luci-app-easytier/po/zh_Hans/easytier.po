@@ -528,6 +528,10 @@ msgstr "无TUN模式"
 msgid "Node Info"
 msgstr "本机信息"
 
+#: applications/luci-app-easytier/luasrc/model/cbi/easytier.lua:70
+msgid "Noise-encrypted handshake between nodes; peers must support secure mode"
+msgstr "节点间使用 Noise 加密握手与身份认证；对端节点需支持安全模式"
+
 #: applications/luci-app-easytier/luasrc/model/cbi/easytier.lua:136
 msgid ""
 "OFF: Do not listen on any port, only connect to peer nodes (--no-listener "
@@ -632,6 +636,10 @@ msgstr "SOCKS5端口"
 #: applications/luci-app-easytier/luasrc/model/cbi/easytier.lua:468
 msgid "STUN Info"
 msgstr "STUN信息"
+
+#: applications/luci-app-easytier/luasrc/model/cbi/easytier.lua:69
+msgid "Secure Mode"
+msgstr "安全模式"
 
 #: applications/luci-app-easytier/luasrc/model/cbi/easytier.lua:687
 msgid "Self-hosted Web Server"
